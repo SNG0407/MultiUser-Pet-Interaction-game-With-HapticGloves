@@ -1,0 +1,27 @@
+<?php
+
+//unity import
+$id = $_POST['Input_id'];
+$pass = $_POST['Input_pass'];
+$Info = $_POST['Input_Info'];
+
+//mysql의 아이디와 비밀번호 입력
+$con = mysql_connect("management-tutorial.clloz5q5p9gj.ap-northeast-2.rds.amazonaws.com","user","q1w2e3r4) or ("Cannot connect!" .mysql_error());
+if(!$con)
+	die("Could not Connect:" .mysql_error());
+mysql_select_db("management",$con) or die("Could not load the database:" .mysql_error());
+
+$check = mysql_query("SELECT * FROM CUSTOMER WHERE 'id' = '".$id."'"); //Account라는 테이블에서 내가 입력한 ID값 찾기
+
+//Mysql_num_row()함수 = 데이터베이스에서 쿼리를 보내서 나온 레코드의 개수를 반환
+//0이 나오면 내가 찾는 id값이 없다는 뜻
+
+$numrows = mysql_num)rows($check);
+if($numrows == 0)
+{
+	// 정보 삽입 쿼리문
+	$Result = mysql_query("INSERT INTO 'CUSTOMER' ('id', 'pw', 'info') VALUES ('",$id,"' , '",$pass,"' , '",$Info,"');
+
+}
+
+

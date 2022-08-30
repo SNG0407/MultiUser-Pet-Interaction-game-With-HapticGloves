@@ -1,0 +1,3 @@
+USE management;
+
+SELECT * FROM CUSTOMER;

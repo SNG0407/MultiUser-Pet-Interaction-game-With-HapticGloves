@@ -1,0 +1,48 @@
+sudo -s //root로 바꾸기
+yum install httpd -y  //웹 서버 설치
+
+service httpd. start // 시작
+ 
+nano /var/www/html/index.html
+
+
+ctrl x
+y
+enter
+
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+//using UnityEngine.Networking;
+
+public class WebTest : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine(GetText());
+    }
+
+    IEnumerator GetText()
+    {
+        //using (UnityWebRequest www = UnityWebRequest.Get("")) //https://ap-northeast-2.console.aws.amazon.com/ec2/v2/connect/ec2-user/i-0bc906e34094ae8aa
+        //{
+        //    // Request and wait for the desired page.
+        //   
+
+        //    if(www.isNetworkError || www.isHttpError)
+        //    {
+        //        Debug.Log(www.error);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log(www.downloadHandler.text);
+
+        //        byte[] results = www.downloadHandler.data;
+        //    }
+        //}
+        yield return null;
+    }
+}

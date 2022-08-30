@@ -1,0 +1,58 @@
+1. 로그인
+ - 서버 :  [user] 아이디, 패스워드 읽고 동일한 계정이 있으면 {유저 ID} 유니티에 전송
+            
+2. GetUser
+ - 서버 :  [user] 유저 id에 맞는 {유저 이름, 레벨, 코인} 유니티에 전송
+
+3. GetUserItems
+ - 서버 :  [useritems] userID에 맞는 ID의 itemID 배열에 넣어서 유니티에 전송 
+
+3. GetUserPets//밑에 다시 만듬
+ - 서버 :  [pet] ownerID에 맞는 petID의 {petID, name, description, price, image, 3D} 넣어서 유니티에 전송 
+
+4. CreatePet.php //php.done  //script.done
+ - 서버 :  [pet] 테이블에 INSERT : {ownerID, name, description, price, image, 3D} 등록 (판매를 위한 등록)
+
+5. petShopUpload.php//done  //script.done 
+- 유니티 : 펫상점에 들어가면 [pet]에 등록된 펫들 보여주기 [pet name, price, description, image, 3D?] 
+- 서버 :  [pet] SELECT : {ownerID, name, description, price, image, 3D}배열 유니티로 받아온 후 
+            GetPets.php로 서버[pet]테이블에서 펫 정보 받아온 후 디스플레이
+
+6. GetUserPetIDS.php //done //script.done
+- 유니티 : 현재 userID를 서버에 보내고 유저가 갖고 있는 {petID}s 불러온 후 그 {petID}s의 정보 유니티에 불러오기 [펫 인벤토리에 저장]
+- 서버 :  [pet] 테이블에서 "SELECT ID, petID FROM usersitems WHERE userID = '" . $userID . "'";
+userID = {ownerID}인 pet정보 선택
+           SELECT : {ownerID, name, description, price, image, 3D}
+
+7. GetPet.php //done //script.done
+- 유니티 : petID를 넘기기 -> 정보 받으면 디스플레이
+- 서버 :  [pet] 테이블에서 "SELECT ownerID, name, description, price, image, 3D FROM pet WHERE petID = '" . $petID . "'";
+           배열로 정보 유니티에 보내기 
+
+8. BuyPet.php //done
+- 유니티 : 구매버튼을 누르면 해당 {petID}와 현재 구매하는 {userID}를 BuyPet.php에 넘김. 
+- 서버 :   
+  1)현재 유저에 펫 등록시키기 - "INSERT INTO userspets (`userID`, `petID`) VALUES ($userID, $petID);";
+  2)펫 등록시 생성된 ID유니티에 저장 - "SELECT ID FROM userspets WHERE petID = '" . $petID . "' AND userID =  '" . $userID . "'";          
+  3)구매하고자하는 petID의 ownerID와 price찾기 - "SELECT onwerID, price FROM pet WHERE petID = '" . $petID . "'";   
+  4)[user]에서 UPDATE : {id}=userID의 {coin} - {price}하고,  {id}=ownerID의 {coin}+{price}
+	$itemPrice = $result->fetch_assoc()["price"];
+	"UPDATE `user` SET `coin` = coin- '" . $itemPrice . "' WHERE `id` = '" . $userID . "'";
+	"UPDATE `user` SET `coin` = coin+ '" . $itemPrice . "' WHERE `id` = '" . $ownerID . "'";
+
+/////////////////////////////////Loginmanager.cs/////////////////////////////////
+lee 234
+park 123
+kim 123
+
+1. 펫 인벤토리 아이템 리스트로 구현하기 상점과 유사한 UI쓰기
+(펫 상점    : 펫 상점을 펫 아이들을 전시해놓는 방식 or 상점 리스트에서 보기버튼 누르면 3D로 보이게하기)
+(펫 인벤토리 : 펫 사용하기 버튼 누르면 펫이 유저 옆에 생성되기)
+2. 펫과 비슷하게 아이템 UI도 바꾸기? 근데 아이템은 그대로 둬도 될 듯?
+3. 멀티플레이어 명찰 오류 고치기
+4. 멀티플레이어 유저별 플레이어 캐릭터 달라지게하기
+5. 멀티플레이어 로테이션 안바뀌는 오류 고치기
+6. UI VR환경으로 바꾸기
+7. VR환경에서 멀티플레이어 환경 구축
+8. 펫 사용하기 버튼 누르면 펫이 유저 옆에 생성되기
+9. 펫도 멀티플레이에서 보이도록 설정하기
